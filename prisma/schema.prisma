@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model emailCapture {
+  id         Int       @id @default(autoincrement())
+  email      String
+  created_at DateTime  @default(now())
+}
+
