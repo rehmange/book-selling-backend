@@ -7,9 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model emailCapture {
-  id         Int       @id @default(autoincrement())
-  email      String
-  created_at DateTime  @default(now())
+model Books {
+  BookID          Int      @id @default(autoincrement())
+  Title           String
+  Description     String
+  ISBN            String
+  Author          String
+  ImageLink       String
+  PublicationDate DateTime
+  Price           Float
+  CreatedAt       DateTime @default(now())
 }
 
+model EmailCapture {
+  EmailCaptureID Int      @id @default(autoincrement())
+  EmailAddress   String
+  CreatedAt      DateTime @default(now())
+}
+
+model SocialLinks {
+  SocialLinkId Int     @id @default(autoincrement())
+  Type         String?
+  Url          String?
+  CreatedAt    DateTime @default(now())
+}

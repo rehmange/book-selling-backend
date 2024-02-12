@@ -11,9 +11,10 @@ import prisma from "../DB/db.config.js";
 export const createEmailCapture = async (req, res) => {
   const { email } = req.body;
 
-  const newPost = await prisma.emailCapture.create({
+  const newPost = await prisma.EmailCapture.create({
     data: {
-      email,
+      EmailAddress: email,
+      CreatedAt: new Date(),
     },
   });
 

@@ -7,4 +7,5 @@ const router = Router();
 
 router.post("/", createEmailCapture);
 
+
 export default router;

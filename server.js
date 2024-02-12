@@ -1,8 +1,16 @@
 import "dotenv/config";
+import cors from 'cors';
 
 import express from "express";
 const app = express();
 const PORT = process.env.PORT || 3000;
+const FrontendUrl = process.env.FRONTEND_URL
+
+app.use(
+  cors({
+    origin: FrontendUrl,
+  })
+);
 
 // * Middleware
 app.use(express.json());
