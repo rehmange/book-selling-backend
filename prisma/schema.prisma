@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider = "sqlserver"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Books {
@@ -17,7 +17,7 @@ model Books {
   ImageLink       String
   PublicationDate DateTime
   Price           Float
-  Available       Boolean
+  Available       Boolean @default(true)
   CreatedAt       DateTime @default(now())
 }
 
