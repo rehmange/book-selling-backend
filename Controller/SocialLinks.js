@@ -1,5 +1,12 @@
 import prisma from "../DB/db.config.js";
 
+/**
+ * Fetch Social Links
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export const fetchSocialLink = async (req, res) => {
   const socialLinks = await prisma.SocialLinks.findMany({});
 
