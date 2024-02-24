@@ -1,11 +1,15 @@
 import { Router } from "express";
 import {
     createBook,
-    updateAvailableBook
+    updateAvailableBook,
+    fetchBooks,
+    fetchBook
 } from "../Controller/BookController.js";
 
 const router = Router();
 
+router.get("/", fetchBooks);
+router.get("/:id", fetchBook);
 router.post("/", createBook);
 router.put("/availability/:id", updateAvailableBook);
 

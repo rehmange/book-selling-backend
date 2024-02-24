@@ -5,7 +5,6 @@ import AboutRoutes from "./aboutRoutes.js";
 import BookRoutes from "./bookRoutes.js";
 
 const router = Router();
-console.log("helo")
 // * For Email Capture Routes
 router.use("/api/email-capture", EmailCaptureRoutes);
 router.use("/api/social-link", SocialLinkRoutes);

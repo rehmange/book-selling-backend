@@ -1,6 +1,66 @@
 import prisma from "../DB/db.config.js";
 
 /**
+ * Fetch Book
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+export const fetchBook = async (req, res) => {
+  try {
+    let Books = await prisma.Books.findFirst({
+      where: {
+        BookID: Number(req.params.id),
+        Available:true
+      },
+    });
+
+    return res.json({
+      status: 200,
+      data: Books,
+    });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
+};
+
+/**
+ * Fetch All Book
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+export const fetchBooks = async (req, res) => {
+  try {
+    let Books = await prisma.Books.findMany({
+      where:{
+        Available:true
+      },
+      orderBy: [
+        {
+          CreatedAt: "desc",
+        },
+      ],
+    });
+
+    return res.json({
+      status: 200,
+      data: Books,
+    });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
+};
+
+/**
  * Create Book 
  * @param {*} req 
  * @param {*} res 

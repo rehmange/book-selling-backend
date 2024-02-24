@@ -8,31 +8,39 @@ import prisma from "../DB/db.config.js";
  * @returns
  */
 export const fetchAbout = async (req, res) => {
-  let socialLinks = await prisma.About.findMany({
-    take: 1,
-    orderBy: [
-      {
-        CreatedAt: "desc",
-      },
-    ],
-  });
+  try {
+    let socialLinks = await prisma.About.findMany({
+      take: 1,
+      orderBy: [
+        {
+          CreatedAt: "desc",
+        },
+      ],
+    });
 
-  if (socialLinks?.length > 0) {
-    socialLinks = socialLinks[0];
-  } else {
-    socialLinks = {
-      Title: "Title",
-      Desc1: "Desc1",
-      Desc2: "desc2",
-      ImageUrl: "image",
-      Instruction:"Please create an entry for the About page as there is currently no About Page found in the database.",
-    };
+    if (socialLinks?.length > 0) {
+      socialLinks = socialLinks[0];
+    } else {
+      socialLinks = {
+        Title: "Title",
+        Desc1: "Desc1",
+        Desc2: "desc2",
+        ImageUrl: "image",
+        Instruction:
+          "Please create an entry for the About page as there is currently no About Page found in the database.",
+      };
+    }
+
+    return res.json({
+      status: 200,
+      data: socialLinks,
+    });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
   }
-
-  return res.json({
-    status: 200,
-    data: socialLinks,
-  });
 };
 
 /**
@@ -43,18 +51,25 @@ export const fetchAbout = async (req, res) => {
  * @returns
  */
 export const fetchAboutAll = async (req, res) => {
-  let socialLinks = await prisma.About.findMany({
-    orderBy: [
-      {
-        CreatedAt: "desc",
-      },
-    ],
-  });
+  try {
+    let socialLinks = await prisma.About.findMany({
+      orderBy: [
+        {
+          CreatedAt: "desc",
+        },
+      ],
+    });
 
-  return res.json({
-    status: 200,
-    data: socialLinks,
-  });
+    return res.json({
+      status: 200,
+      data: socialLinks,
+    });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
 };
 
 /*
@@ -74,20 +89,21 @@ export const fetchAboutAll = async (req, res) => {
  *
  */
 export const createAbout = async (req, res) => {
-  // const { Title, Desc1, Desc2, ImageUrl } = req.body;
+  try {
+    const newAbout = await prisma.About.create({
+      data: {
+        ...req.body,
+        CreatedAt: new Date(),
+      },
+    });
 
-  const newAbout = await prisma.About.create({
-    data: {
-      ...req.body,
-      // Title: Title,
-      // Desc1: Desc1,
-      // Desc2: Desc2,
-      // ImageUrl: ImageUrl,
-      CreatedAt: new Date(),
-    },
-  });
-
-  return res.json({ status: 200, data: newAbout, msg: "About created." });
+    return res.json({ status: 200, data: newAbout, msg: "About created." });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
 };
 
 /*
@@ -108,20 +124,25 @@ export const createAbout = async (req, res) => {
  *
  */
 export const updateAbout = async (req, res) => {
-  // const { Title, Desc1, Desc2, ImageUrl } = req.body;
-  const id = req.params.id;
-  const newAbout = await prisma.About.update({
-    where: {
-      AboutId: Number(id),
-    },
-    data: {
-      ...req.body,
-    },
-  });
+  try {
+    const id = req.params.id;
+    const newAbout = await prisma.About.update({
+      where: {
+        AboutId: Number(id),
+      },
+      data: {
+        ...req.body,
+      },
+    });
 
-  return res.json({ status: 200, data: newAbout, msg: "About Updated." });
+    return res.json({ status: 200, data: newAbout, msg: "About Updated." });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
 };
-
 
 /**
  * Delete Socail Link
@@ -132,12 +153,19 @@ export const updateAbout = async (req, res) => {
  * @returns
  */
 export const deleteAbout = async (req, res) => {
-  const id = req.params.id;
-  await prisma.About.delete({
-    where: {
-      AboutId: Number(id),
-    },
-  });
+  try {
+    const id = req.params.id;
+    await prisma.About.delete({
+      where: {
+        AboutId: Number(id),
+      },
+    });
 
-  return res.json({ status: 200, msg: "About deleted successfully" });
+    return res.json({ status: 200, msg: "About deleted successfully" });
+  } catch (error) {
+    return res.json({
+      status: 500,
+      error: error.message,
+    });
+  }
 };

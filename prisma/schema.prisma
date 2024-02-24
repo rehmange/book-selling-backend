@@ -18,6 +18,7 @@ model Books {
   PublicationDate DateTime
   Price           Float
   Available       Boolean @default(true)
+  Amazon          String  @default("Enter Link For it")
   CreatedAt       DateTime @default(now())
 }
 
