@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
-  url      = env("DATABASE_URL")
+  provider          = "sqlserver"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -17,8 +17,8 @@ model Books {
   ImageLink       String
   PublicationDate DateTime
   Price           Float
-  Available       Boolean @default(true)
-  Amazon          String  @default("Enter Link For it")
+  Available       Boolean  @default(true)
+  Amazon          String   @default("Enter Link For it")
   CreatedAt       DateTime @default(now())
 }
 
@@ -29,17 +29,27 @@ model EmailCapture {
 }
 
 model SocialLinks {
-  SocialLinkId Int     @id @default(autoincrement())
+  SocialLinkId Int      @id @default(autoincrement())
   Type         String?
   Url          String?
   CreatedAt    DateTime @default(now())
 }
 
 model About {
-  AboutId       Int         @id @default(autoincrement())
-  Title         String?
-  Desc1         String?
-  Desc2         String?
-  ImageUrl      String?
-  CreatedAt     DateTime    @default(now())
+  AboutId   Int      @id @default(autoincrement())
+  Title     String?
+  Desc1     String?
+  Desc2     String?
+  ImageUrl  String?
+  CreatedAt DateTime @default(now())
+}
+
+model Landing {
+  LandingId   Int      @id @default(autoincrement())
+  Description String
+  VideoLink   String
+  LeftBook    Int?
+  RightBook   Int?
+  BottomBook  Int?
+  CreatedAt   DateTime @default(now())
 }
